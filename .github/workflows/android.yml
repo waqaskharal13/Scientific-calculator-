@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -21,12 +22,17 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y zip unzip openjdk-17-jdk python3-pip
+        pip install --upgrade pip
         pip install buildozer cython
-        yes | sdkmanager --licenses || true
-        buildozer android debug
+
+    - name: Accept Android SDK licenses
+      run: yes | sdkmanager --licenses || true
+
+    - name: Build APK
+      run: buildozer android debug
 
     - name: Upload APK
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: scientific-calculator-apk
         path: bin/*.apk
