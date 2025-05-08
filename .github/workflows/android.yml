@@ -35,6 +35,7 @@ jobs:
           automake \
           libtool \
           pkg-config \
+          libltdl-dev \
           zlib1g-dev \
           libsqlite3-dev \
           libjpeg-dev \
